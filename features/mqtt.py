@@ -71,6 +71,10 @@ def run(emparts, config):
     mqttfields = config.get('mqttfields', 'pconsume,psupply')
     publish_single = int(config.get('publish_single', 0))
 
+    # Correction of total supply and total consume
+    psupplycounter_correction = float(config.get('psupplycountercorrection', 0.0))
+    pconsumecounter_correction = float(config.get('pconsumecounter_correction', 0.0))
+
     ssl_activate = config.get('ssl_activate', False)
     ssl_ca_file = config.get('ssl_ca_file', None)
     ssl_certfile = config.get('ssl_certfile', None)
@@ -144,6 +148,8 @@ def run(emparts, config):
         data['pvsum'] = pvpower
         data['pusage'] = pusage
         data['pvdaily'] = daily
+        data['psupplycounter'] += psupplycounter_correction
+        data['pconsumecounter'] += pconsumecounter_correction
     except:
         pv_data = None
         pass
