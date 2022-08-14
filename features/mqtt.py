@@ -72,7 +72,7 @@ def run(emparts, config):
     publish_single = int(config.get('publish_single', 0))
 
     # Correction of total supply and total consume
-    psupplycounter_correction = float(config.get('psupplycountercorrection', 0.0))
+    psupplycounter_correction = float(config.get('psupplycounter_correction', 0.0))
     pconsumecounter_correction = float(config.get('pconsumecounter_correction', 0.0))
 
     ssl_activate = config.get('ssl_activate', False)
@@ -146,8 +146,12 @@ def run(emparts, config):
         psupply = emparts.get('psupply', 0)
         pusage = pvpower + pconsume - psupply
         data['pvsum'] = pvpower
-        data['pusage'] = pusage
-        data['pvdaily'] = daily
+        # Check if value from inverter / multicast is negative
+        if pusage > 0:
+            data['pusage'] = "{:.4f}".format(pusage)
+        # Check if present (not always for all inverters)
+        if daily:
+            data['pvdaily'] = daily
         data['psupplycounter'] += psupplycounter_correction
         data['pconsumecounter'] += pconsumecounter_correction
     except:
