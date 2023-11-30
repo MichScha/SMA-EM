@@ -35,6 +35,10 @@ sudo pip install pymodbus
 or
 ```
 sudo pip3 install pymodbus
+
+sudo pip3 install -U paho-mqtt 
+
+sudo pip3 install -U pymodbus 
 ```
 
 ## Configuration
