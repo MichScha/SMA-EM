@@ -234,7 +234,11 @@ registers = [
     ['30521', 'U64', 'FIX0', 'Operating_Time', 's'],
     ['30525', 'U64', 'FIX0', 'Feed-in_Time', 's'],
     ['30975', 'S32', 'FIX2', 'Intermediate_Circuit_Voltage', 'V'],
-    ['30225', 'S32', 'FIX0', 'Isolation_Resistance', u'\u03a9']
+    ['30225', 'S32', 'FIX0', 'Isolation_Resistance', u'\u03a9'],
+    ['30581', 'U32', 'FIX0', u'energy from grid', 'Wh'],
+    ['30583', 'U32', 'FIX0', u'energy to grid', 'Wh'],
+    ['30865', 'S32', 'FIX0', 'Power from grid', 'W'],
+    ['30867', 'S32', 'FIX0', 'Power to grid', 'W']
     ]
 
 registers_batt = [
