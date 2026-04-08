@@ -1,0 +1,39 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+changelog
+contributors.md
+knownProblems.md
+features/README.md
+LICENSE
+
+# Sample/test files
+config.sample
+sma-em-measurement.py
+sma-em-capture-package.py
+
+# Systemd (not needed in Docker)
+systemd-settings
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.py[cod]
+*$py.class
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
