@@ -115,6 +115,63 @@ feel lucky and read /run/shm/em-<serial>-<value>
 
 
 
+## Docker
+
+### Quick Start
+
+1. Copy and edit the configuration:
+```bash
+cp config.sample config
+nano config
+```
+
+2. Build and start the container:
+```bash
+docker compose up -d
+```
+
+3. View logs:
+```bash
+docker compose logs -f
+```
+
+### Configuration
+
+Edit the `config` file before starting. Important settings:
+- `serials`: Your SMA Energy Meter serial number(s)
+- `features`: Enable features like `mqtt`, `influxdb`, `influxdb2`
+- `ipbind`: Set to `0.0.0.0` for Docker
+
+### Network Mode
+
+The container uses `network_mode: host` because SMA Energy Meters send data via UDP multicast (239.12.255.254:9522). Docker's default bridge network doesn't support multicast.
+
+### Example with MQTT
+
+```yaml
+services:
+  sma-em:
+    build: .
+    container_name: sma-em-daemon
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./config:/etc/smaemd/config:ro
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mosquitto
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+
+volumes:
+  mosquitto_data:
+  mosquitto_log:
+```
+
 ## Testing
 sma-em-capture-package - trys to capture a SMA-EM or SMA-homemanager Datagram and display hex and ascii package-info and all recogniced measurement values.
 Cloud be helpful on package/software changes.

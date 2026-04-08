@@ -1,0 +1,19 @@
+services:
+  sma-em:
+    build: .
+    container_name: sma-em-daemon
+    restart: unless-stopped
+    # Host network is required for multicast UDP reception
+    network_mode: host
+    volumes:
+      # Configuration file
+      - ./config:/etc/smaemd/config:ro
+      # Status files (optional)
+      - /run/shm:/run/shm
+    # Healthcheck (optional)
+    healthcheck:
+      test: ["CMD", "test", "-f", "/run/shm/em-status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
